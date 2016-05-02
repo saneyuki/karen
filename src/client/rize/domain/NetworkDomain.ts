@@ -22,29 +22,9 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
-import * as Rx from 'rxjs';
+import {Option} from 'option-t';
 
 export type NetworkId = number;
-
-export class RizeNetworkDomain {
-
-    private _id: NetworkId;
-    private _nickname: string;
-
-    private _value: Rx.Observable<RizeNetworkValue>;
-
-    constructor(id: NetworkId, nickname: string) {
-        this._id = id;
-        this._nickname = nickname;
-
-        this._value = Rx.Observable.of(new RizeNetworkValue(id, nickname)).share();
-    }
-
-    getValue(): Rx.Observable<RizeNetworkValue> {
-        return this._value;
-    }
-}
 
 export class RizeNetworkValue {
     private _id: NetworkId;
@@ -62,4 +42,24 @@ export class RizeNetworkValue {
     nickname(): string {
         return this._nickname;
     }
+}
+
+export interface JoinNetworkCommand {
+    server: IrcNetwork;
+    user: User;
+    channel: Array<string>;
+}
+
+export interface IrcNetwork {
+    name(): string;
+    url(): string;
+    port(): number;
+    pass(): Option<string>;
+    useTLS(): boolean;
+}
+
+export interface User {
+    nickname(): string;
+    username(): string;
+    realname(): string;
 }
