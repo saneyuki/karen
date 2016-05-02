@@ -41,3 +41,8 @@ export interface RecievedMessage {
     channelId: ChannelId;
     message: Message;
 }
+
+export interface Command {
+    channelId: ChannelId;
+    text: string;
+}
