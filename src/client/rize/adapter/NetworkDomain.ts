@@ -1,5 +1,5 @@
 /**
- * @license MIT License
+ * MIT License
  *
  * Copyright (c) 2016 Tetsuharu OHZEKI <saneyuki.snyk@gmail.com>
  * Copyright (c) 2016 Yusuke Suzuki <utatane.tea@gmail.com>
@@ -22,36 +22,44 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+import {Option} from 'option-t';
 
-//import {AppStateRepository} from './adapter/AppStateRepository';
-//import {NotificationService} from './adapter/NotificationService';
-import {RizeChannelRepository} from './adapter/RizeChannelRepository';
-import {RizeMessageGateway} from './adapter/RizeMessageGateway';
-//import {RizeMessageRepository} from './adapter/RizeMessageRepository';
-import {RizeNetworkRepository} from './adapter/RizeNetworkRepository';
-//import {RizeUserListRepository} from './adapter/RizeUserListRepository';
+export type NetworkId = number;
 
-import {RizeIrcSaga} from './domain/RizeIrcSaga';
+export class RizeNetworkValue {
+    private _id: NetworkId;
+    private _nickname: string;
 
-import {IrcAction} from './intent/IrcAction';
-
-/**
- *  ReInitialiZEd Client
- */
-export class RizeClient {
-
-    constructor() {
-        const ircAction = new IrcAction();
-
-        const gateway = new RizeMessageGateway();
-        const networkRepo = new RizeNetworkRepository();
-        const channelRepo = new RizeChannelRepository();
-
-        new RizeIrcSaga({
-            intent: ircAction.dispatcher(),
-            gateway: gateway,
-            network: networkRepo,
-            channel: channelRepo,
-        });
+    constructor(id: NetworkId, nickname: string) {
+        this._id = id;
+        this._nickname = nickname;
     }
+
+    id(): NetworkId {
+        return this._id;
+    }
+
+    nickname(): string {
+        return this._nickname;
+    }
+}
+
+export interface JoinNetworkCommand {
+    server: IrcNetwork;
+    user: User;
+    channel: Array<string>;
+}
+
+export interface IrcNetwork {
+    name(): string;
+    url(): string;
+    port(): number;
+    pass(): Option<string>;
+    useTLS(): boolean;
+}
+
+export interface User {
+    nickname(): string;
+    username(): string;
+    realname(): string;
 }
