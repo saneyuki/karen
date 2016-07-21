@@ -13,7 +13,7 @@
         "no-arg": true,
         "no-conditional-assignment": true,
         "no-construct": true,
-        "no-constructor-vars": true,
+        "no-constructor-vars": false,
         "no-default-export": true,
         "no-duplicate-key": true,
         "no-duplicate-variable": true,
