@@ -102,6 +102,7 @@ function runLinkerForClient(cwd, nodeModDir, entryPoint, distDir) {
  */
 function compileScriptForServer(cwd, npmModDir, srcDir, distDir, isRelease) {
     const babelPresets = [
+        'power-assert'
     ];
 
     let babelPlugins = [
