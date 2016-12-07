@@ -84,7 +84,9 @@ const enum HttpStatus {
     Forbidden = 403,
 }
 
-export const MimeType = {
+export const MimeType: Readonly<{
+    JSON: 'application/json',
+}> = {
     JSON: 'application/json',
 };
 
